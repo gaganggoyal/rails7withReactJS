@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
+import EmptyQuestionList from "./EmptyQuestionList";
 import QuestionDetail from "./QuestionDetail";
 
 const QuestionList = () => {
@@ -9,11 +9,12 @@ const QuestionList = () => {
     { label: "Rails", value: 2 },
     { label: "React", value: 3 },
     { label: "Bootstrap", value: 4 },
-    { label: "Javascript", value: 5 }
+    { label: "Javascript", value: 5 },
   ];
 
   const [questionList, setQuestionList] = useState([]);
   const [selectedOption, setSelectedOption] = useState(questionTags[0].value);
+  const [isShowAlert, setIsShowAlert] = useState(false);
 
   const questionsUrl = "http://localhost:3000/api/v1/questions";
 
@@ -38,6 +39,11 @@ const QuestionList = () => {
       .then((data) => {
         console.log(data);
         setQuestionList(data);
+        if (data.length == 0) {
+          setIsShowAlert(true);
+        } else {
+          setIsShowAlert(false);
+        }
       });
   };
 
@@ -109,9 +115,14 @@ const QuestionList = () => {
             </option>
           ))}
         </select>
-        {questionList.map((question) => (
-          <QuestionDetail question={question} key={question.id} />
-        ))}
+        {questionList.length > 0
+          ? questionList.map((question) => (
+              <QuestionDetail question={question} key={question.id} />
+            ))
+          : ""}
+        {isShowAlert && (
+          <EmptyQuestionList tagname={questionTags[selectedOption].label} />
+        )}
       </div>
     </div>
   );
