@@ -14,7 +14,8 @@ const QuestionDetail = (props) => {
         <button
           type="button"
           className="btn btn-primary position-relative"
-          onClick={() => setLikeCount(likeCount + 1)} style={{marginRight:1 + 'em'}}
+          onClick={() => setLikeCount(likeCount + 1)}
+          style={{ marginRight: 1 + "em" }}
         >
           Like
           {likeCount > 0 ? (
