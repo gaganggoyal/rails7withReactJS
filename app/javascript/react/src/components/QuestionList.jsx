@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import QuestionDetail from "./QuestionDetail";
 
 const QuestionList = () => {
