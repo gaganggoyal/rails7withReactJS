@@ -1,8 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const QuestionDetail = (props) => {
-  const [likeCount, setLikeCount] = useState(0);
-  const [dislikeCount, setDislikeCount] = useState(0);
+  const [likeCount, setLikeCount] = useState(props.question.likes_count);
+  const [dislikeCount, setDislikeCount] = useState(
+    props.question.dislikes_count
+  );
+
+  updateQuestionCounter = (data) => {
+    fetch(
+      `http://localhost:3000/api/v1/questions/${props.question.id}/update_counter`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    updateQuestionCounter({ count_for: "like" });
+  }, [likeCount]);
+
+  useEffect(() => {
+    updateQuestionCounter({ count_for: "dislike" });
+  }, [dislikeCount]);
 
   return (
     <div className="card rounded-0 mt-3">
@@ -30,7 +59,7 @@ const QuestionDetail = (props) => {
         <button
           type="button"
           className="btn btn-primary position-relative"
-          onClick={() => setDislikeCount(likeCount + 1)}
+          onClick={() => setDislikeCount(dislikeCount + 1)}
         >
           Dislike
           {dislikeCount > 0 ? (
