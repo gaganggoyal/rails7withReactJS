@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import EmptyQuestionList from "./EmptyQuestionList";
 import Loader from "./Loader";
 import QuestionDetail from "./QuestionDetail";
+import NewQuestion from "./NewQuestion";
 
 const QuestionList = () => {
   const questionTags = [
@@ -107,6 +108,15 @@ const QuestionList = () => {
     <div className="row">
       <div className="col-lg-10 mx-auto">
         <p className="lead fw-bold">Filter Questions by Tags</p>
+        <button
+          type="button"
+          className="btn btn-primary mt-3 mb-3"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          Contribute Your Question
+        </button>
+
         <select
           className="form-select form-select-lg"
           value={selectedOption}
@@ -129,6 +139,7 @@ const QuestionList = () => {
           <EmptyQuestionList tagname={questionTags[selectedOption].label} />
         )}
       </div>
+      <NewQuestion />
     </div>
   );
 };
