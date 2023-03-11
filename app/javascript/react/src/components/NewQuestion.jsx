@@ -2,37 +2,37 @@ import React, { useState } from "react";
 
 const NewQuestion = () => {
   const questionTags = [
-    { label: "Ruby", value: 0 },
-    { label: "Rails", value: 1 },
-    { label: "React", value: 2 },
-    { label: "Bootstrap", value: 3 },
-    { label: "Javascript", value: 4 },
-    { label: "Data Structure", value: 5 },
+    { label: "Ruby", value: "Ruby" },
+    { label: "Rails", value: "Rails" },
+    { label: "React", value: "React" },
+    { label: "Bootstrap", value: "Bootstrap" },
+    { label: "Javascript", value: "Javascript" },
+    { label: "Data Structure", value: "Data Structure" },
   ];
 
-  const [title, setTitle] = useState("");
-  const [tag, setTag] = useState(questionTags[0].value);
+  // const [title, setTitle] = useState("");
+  // const [tag, setTag] = useState(questionTags[0].value);
 
-  const titleChangeHandler = (event) => {
-    setTitle(event.target.value);
-  };
-  const tagChangeHandler = (event) => {
-    setTag(event.target.value);
-  };
+  // const titleChangeHandler = (event) => {
+  //   setTitle(event.target.value);
+  // };
+  // const tagChangeHandler = (event) => {
+  //   setTag(event.target.value);
+  // };
 
-  // const [formField, setFormField] = useState({
-  //   title: "",
-  //   tag: questionTags[0].value,
-  // });
+  const [formField, setFormField] = useState({
+    title: "",
+    tag: questionTags[0].value,
+  });
 
   const QuestionSubmitHandler = (event) => {
     event.preventDefault();
-    console.log({ title: title, tag: tag });
+    console.log(formField);
   };
 
-  // const formFieldHandler = (event) => {
-  //   setFormField({...formField, [event.target.name]: event.target.value})
-  // }
+  const formFieldHandler = (event) => {
+    setFormField({ ...formField, [event.target.name]: event.target.value });
+  };
 
   return (
     <div
@@ -62,8 +62,8 @@ const NewQuestion = () => {
                 <input
                   type="text"
                   className="form-control form-control-lg rounded-0"
-                  value={title}
-                  onChange={(event) => titleChangeHandler(event)}
+                  value={formField.title}
+                  onChange={(event) => formFieldHandler(event)}
                   name="title"
                 ></input>
               </div>
@@ -73,8 +73,8 @@ const NewQuestion = () => {
                 </label>
                 <select
                   className="form-select form-select-lg rounded-0"
-                  value={tag}
-                  onChange={(event) => tagChangeHandler(event)}
+                  value={formField.tag}
+                  onChange={(event) => formFieldHandler(event)}
                   name="tag"
                 >
                   {questionTags.map((tag) => (
@@ -93,7 +93,7 @@ const NewQuestion = () => {
               >
                 Cancel
               </button>
-              <button type="button" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary">
                 Submit Question
               </button>
             </div>
